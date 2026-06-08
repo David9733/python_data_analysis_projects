@@ -107,20 +107,8 @@ raw['평균연봉(만원)'] = raw['평균월급여(만원)'] * 12
 
 ### 2. 유튜브 댓글 수집 재사용 함수
 
-```python
+```
 def yt_review(url, content_name, end_key_input):
-    browser.get(url)
-    time.sleep(3)
-    for i in range(end_key_input):
-        browser.find_element('css selector', 'body').send_keys(Keys.END)
-        time.sleep(1)
-    soup = BeautifulSoup(browser.page_source, 'html.parser')
-    lst = soup.select('ytd-comment-thread-renderer.style-scope.ytd-item-section-renderer')
-    result = []
-    for element in lst:
-        reply = element.select('div#content')[0].text.strip()
-        result.append([content_name, reply])
-    return pd.DataFrame(result, columns=['컨텐츠명', '댓글'])
 ```
 
 URL, 컨텐츠명, 스크롤 횟수를 파라미터로 받아 다양한 영상에 재사용 가능하도록 함수화
