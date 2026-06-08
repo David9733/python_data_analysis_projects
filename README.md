@@ -181,7 +181,7 @@ input_word_place.send_keys(searching)
 | Selenium | JavaScript 렌더링이 필요한 동적 웹페이지 자동화 및 스크롤 제어 |
 | BeautifulSoup | CSS 셀렉터 기반 HTML 파싱으로 필요한 요소 정밀 추출 |
 | SQLAlchemy | Python 환경에서 MariaDB 연결 및 SQL 결과를 DataFrame으로 수신 |
-| scikit-learn | KMeans 알고리즘을 직접 구현 없이 `fit()` 한 줄로 호출 가능한 Python 표준 머신러닝 라이브러리 |
+| scikit-learn |  KMeans 클러스터링 구현을 위한 Python 표준 머신러닝 라이브러리 |
 | Jupyter Notebook | 단계별 분석 과정과 결과를 함께 기록 |
 
 ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=Python&logoColor=white)
