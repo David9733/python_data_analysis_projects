@@ -61,11 +61,6 @@
 - **SQL 분석**: 집계 함수, 산술 연산(`opn_1 + opn_2 + ... + opn_5up`), 서브쿼리로 DB 조회
 - **KMeans 클러스터링**: 승하차 상위 20개 역을 12개 시간대 특성으로 3개 그룹 분류
 
-### 4. 시각화
-
-- Jupyter Notebook 내 DataFrame 출력으로 분석 결과 확인
-- `Counter(kmeans.labels_)`로 클러스터별 역 개수 분포 확인
-
 ---
 
 ## 📊 주요 분석 결과
