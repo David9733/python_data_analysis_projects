@@ -98,12 +98,10 @@
 ### 1. 국민연금 데이터 기반 평균연봉 역산
 
 ```python
-raw['인당고지금액'] = raw['당월고지금액'] / raw['가입자수']
-raw['평균월급여(만원)'] = raw['인당고지금액'] / 0.09 / 10000
-raw['평균연봉(만원)'] = raw['평균월급여(만원)'] * 12
+raw['평균연봉(만원)'] = (raw['당월고지금액'] / raw['가입자수']) / 0.09 / 10000 * 12
 ```
 
-국민연금 법정 요율(9%)을 역산하여 별도 연봉 정보 없이도 사업장별 평균 급여 수준을 추정
+국민연금 요율(9%) 역산으로 별도 연봉 데이터 없이 사업장별 평균 연봉 추정
 
 ### 2. 유튜브 댓글 수집 재사용 함수
 
@@ -116,30 +114,16 @@ URL, 컨텐츠명, 스크롤 횟수를 파라미터로 받아 다양한 영상�
 ### 3. 지하철 시간대별 KMeans 클러스터링
 
 ```python
-columns_for_cluster = [
-    '승차_새벽시간', '하차_새벽시간', '승차_출근시간', '하차_출근시간',
-    '승차_점심시간', '하차_점심시간', '승차_오후시간', '하차_오후시간',
-    '승차_퇴근및저녁', '하차_퇴근및저녁', '승차_밤시간', '하차_밤시간'
-]
-df_cluster = df.sort_values(by='승하차일합계', ascending=False).head(20)
 kmeans = KMeans(n_clusters=3, random_state=30)
 kmeans.fit(df_cluster[columns_for_cluster])
 ```
 
-12개 시간대 특성으로 승하차 상위 20개 역을 3개 그룹으로 분류 — 결과: {0: 9개역, 2: 6개역, 1: 5개역}
+12개 시간대 특성으로 승하차 상위 20개 역을 3개 그룹으로 분류
 
 ### 4. SQL 서브쿼리 및 집계 연산
 
 ```sql
--- 가장 최근 가입 고객 조회
-SELECT * FROM customers
-WHERE join_date = (SELECT MAX(join_date) FROM customers)
-
--- 상가 규모별 수량 합산
-SELECT sido_nm, sgg_nm, upjong_mnm,
-       opn_1 + opn_2 + opn_3 + opn_5 + opn_5up AS total
-FROM sgg_upjong_cnt
-WHERE sido_nm = '서울특별시' AND sgg_nm = '중구' AND upjong_mnm = '커피점/카페'
+SELECT * FROM customers WHERE join_date = (SELECT MAX(join_date) FROM customers)
 ```
 
 ---
