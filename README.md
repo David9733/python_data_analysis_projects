@@ -10,7 +10,7 @@
 | --- | --- |
 | 개발 기간 | 2026.04 |
 | 프로젝트 유형 | 개인 데이터 분석 포트폴리오 |
-| 데이터 출처 | 공공 데이터(CSV/Excel), 웹 크롤링, MariaDB |
+| 데이터 출처 |  웹 크롤링, 잇업 데이터(CSV/Excel), MariaDB |
 | 분석 도구 | Python, Jupyter Notebook |
 | 분석 기법 | 집계·정렬, KMeans 클러스터링, SQL 조회, 웹 자동화 |
 
