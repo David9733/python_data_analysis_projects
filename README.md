@@ -12,11 +12,10 @@ Python을 중심으로 Pandas, BeautifulSoup, Selenium 등 실무에서 자주 �
 
 ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=Python&logoColor=white)
 ![Pandas](https://img.shields.io/badge/Pandas-150458?style=flat-square&logo=pandas&logoColor=white)
-![NumPy](https://img.shields.io/badge/NumPy-013243?style=flat-square&logo=numpy&logoColor=white)
-![Matplotlib](https://img.shields.io/badge/Matplotlib-11557c?style=flat-square&logo=python&logoColor=white)
-![Seaborn](https://img.shields.io/badge/Seaborn-4C72B0?style=flat-square&logo=python&logoColor=white)
-![Requests](https://img.shields.io/badge/Requests-2CA5E0?style=flat-square&logo=python&logoColor=white)
 ![BeautifulSoup](https://img.shields.io/badge/BeautifulSoup-59666C?style=flat-square&logo=python&logoColor=white)
+![Selenium](https://img.shields.io/badge/Selenium-43B02A?style=flat-square&logo=Selenium&logoColor=white)
+![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-D71F00?style=flat-square&logo=python&logoColor=white)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=flat-square&logo=scikit-learn&logoColor=white)
 ![Jupyter](https://img.shields.io/badge/Jupyter-F37626?style=flat-square&logo=Jupyter&logoColor=white)
 
 ---
@@ -42,8 +41,8 @@ Python을 중심으로 Pandas, BeautifulSoup, Selenium 등 실무에서 자주 �
 | 항목 | 내용 |
 |---|---|
 | 데이터 전처리 | Pandas를 활용한 데이터 정제, 집계, 정렬 등 전처리 과정 이해 |
-| 데이터 시각화 | Matplotlib, Seaborn을 활용한 데이터 시각적 표현 |
-| 웹 데이터 수집 | Selenium + BeautifulSoup을 활용한 동적 웹페이지 크롤링 |
+| 웹 자동화 | Selenium을 활용한 동적 웹페이지 접근 및 자동화 |
+| 웹 데이터 수집 | BeautifulSoup으로 HTML을 파싱하여 필요한 데이터 추출 |
 | 데이터 분석 과정 | 데이터 수집 → 전처리 → 분석 → 결과 도출의 전체 흐름 습득 |
 | 인사이트 도출 | 공개 데이터와 수집 데이터에서 의미 있는 정보를 추출하는 경험 |
 
