@@ -120,11 +120,55 @@ kmeans.fit(df_cluster[columns_for_cluster])
 
 12개 시간대 특성으로 승하차 상위 20개 역을 3개 그룹으로 분류
 
-### 4. SQL 서브쿼리 및 집계 연산
+### 4. SQL 산술 연산으로 상가 수 합산
+
+```sql
+SELECT opn_1 + opn_2 + opn_3 + opn_5 + opn_5up AS total FROM sgg_upjong_cnt
+WHERE sido_nm = '서울특별시' AND sgg_nm = '중구' AND upjong_mnm = '커피점/카페'
+```
+
+규모별 상가 수 컬럼을 SQL 산술 연산으로 합산하여 총 상가 수 도출
+
+### 5. SQL 서브쿼리로 최근 가입 고객 조회
 
 ```sql
 SELECT * FROM customers WHERE join_date = (SELECT MAX(join_date) FROM customers)
 ```
+
+서브쿼리로 최대 가입일을 구한 뒤 해당 고객만 필터링
+
+### 6. 이름별 출생 수 집계
+
+```python
+df = raw.pivot_table(index='Name', values='Number', aggfunc='sum')
+top10 = df.sort_values(by='Number', ascending=False).head(10)
+```
+
+pivot_table로 이름별 누적 출생 수 합산 후 상위 10개 추출
+
+### 7. 베스트셀러 도서 정보 파싱
+
+```python
+authors = book_part.select('span.authPub.info_auth')[0].text.strip().replace('/', ' / ')
+```
+
+CSS 셀렉터로 도서 요소 추출, 저자명 구분자(`/`)를 ` / `로 정제
+
+### 8. 유튜브 채널 데이터 수집
+
+```python
+result.append([ranking, category, youtube_name, subscriber_count, view_count, video_count])
+```
+
+채널별 6개 항목을 리스트로 누적 수집 후 DataFrame 변환
+
+### 9. 네이버 연관검색어 자동 추출
+
+```python
+input_word_place.send_keys(searching)
+```
+
+`send_keys()`로 검색어 자동 입력 후 자동완성 리스트에서 연관검색어 추출
 
 ---
 
