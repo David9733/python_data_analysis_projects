@@ -230,7 +230,5 @@ DB 연동 프로젝트(서울 중구 커피점 파악, 최근 가입 고객 분�
 
 ## 📎 참고자료
 
-- [공공데이터포털](https://www.data.go.kr) — 국민연금 가입 사업장 내역
-- [서울 열린데이터광장](https://data.seoul.go.kr) — 지하철 시간대별 승하차 인원
 - [YES24 베스트셀러](https://www.yes24.com/Product/Category/BestSeller)
 - [YouTube Rank](https://youtube-rank.com)
