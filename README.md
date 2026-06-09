@@ -220,6 +220,35 @@ time.sleep(2)  # 스크롤 후 렌더링 대기
 
 ---
 
+### ChromeDriver 버전 불일치 오류
+
+**문제 상황**
+
+Selenium 실행 시 아래 오류 발생:
+```
+SessionNotCreatedException: Message: session not created:
+This version of ChromeDriver only supports Chrome version XX
+```
+
+**원인 분석**
+
+로컬에 설치된 Chrome 브라우저 버전과 수동으로 설치한 ChromeDriver 버전이 일치하지 않아 세션 생성 실패. Chrome은 자동 업데이트되므로 ChromeDriver를 별도로 관리하면 버전 불일치가 반복적으로 발생함
+
+**해결 방법**
+
+```python
+import chromedriver_autoinstaller
+chromedriver_autoinstaller.install()
+```
+
+실행 시점의 Chrome 버전을 자동 감지해 맞는 ChromeDriver를 설치하므로 버전 관리 불필요
+
+**배운 점**
+
+Chrome 자동 업데이트 환경에서는 ChromeDriver를 수동으로 관리하는 것이 비효율적이며, `chromedriver-autoinstaller`로 버전 동기화를 자동화하는 것이 현실적인 해결책임
+
+---
+
 ### 한글 CSV 파일 인코딩 오류
 
 **문제 상황**
