@@ -232,3 +232,5 @@ DB 연동 프로젝트(서울 중구 커피점 파악, 최근 가입 고객 분�
 
 - [YES24 베스트셀러](https://www.yes24.com/Product/Category/BestSeller)
 - [YouTube Rank](https://youtube-rank.com)
+- [YouTube 영화 댓글분석](https://www.youtube.com/watch?v=kH86Df2bpyg)
+
