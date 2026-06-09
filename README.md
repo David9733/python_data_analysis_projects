@@ -197,98 +197,21 @@ input_word_place.send_keys(searching)
 
 ## 🔧 트러블슈팅 / 개선 경험
 
-### Selenium 크롤링 시 동적 로딩 대기 문제
+### 환경 설정
 
-**문제 상황**
+- **ChromeDriver 버전 불일치** : Selenium 실행 시 `SessionNotCreatedException: This version of ChromeDriver only supports Chrome version XX` 오류가 발생했습니다. Chrome은 자동 업데이트되지만 ChromeDriver는 수동으로 관리했기 때문에 버전이 불일치한 것이 원인이었습니다. `chromedriver-autoinstaller`를 도입해 실행 시점의 Chrome 버전을 자동 감지·설치하도록 전환했습니다. Chrome 자동 업데이트 환경에서는 ChromeDriver를 수동으로 관리하는 것이 비효율적이며, 버전 동기화를 자동화하는 것이 현실적인 해결책임을 확인했습니다.
 
-유튜브 댓글 수집 시 스크롤 후 즉시 요소를 파싱하면 댓글이 누락되거나 빈 리스트가 반환됨
+### 크롤링
 
-**원인 분석**
+- **Selenium 동적 로딩 대기** : 유튜브 댓글 수집 시 스크롤 후 즉시 요소를 파싱하면 댓글이 누락되거나 빈 리스트가 반환됐습니다. JavaScript로 동적 렌더링되는 페이지는 스크롤 이벤트 이후에도 DOM 업데이트가 완료되기까지 시간이 필요해, 렌더링 완료 전에 파싱하면 미로드 요소가 수집되지 않는 것이 원인이었습니다. 스크롤 후 `time.sleep(2)`로 대기 시간을 삽입해 렌더링이 완료된 뒤 파싱하도록 처리했습니다. 대기 시간이 너무 짧으면 요소 누락, 너무 길면 수집 속도 저하로 이어지므로 페이지 응답 특성에 맞게 조정해야 한다는 것을 확인했습니다.
 
-JavaScript로 동적 렌더링되는 페이지는 스크롤 이벤트 이후에도 DOM 업데이트가 완료되기까지 시간이 필요하며, 렌더링이 끝나기 전에 파싱하면 아직 로드되지 않은 요소는 수집되지 않음
+### 데이터 수집
 
-**해결 방법**
+- **한글 CSV 인코딩 오류** : 국민연금공단 CSV 파일을 기본 옵션으로 읽을 때 인코딩 오류가 발생했습니다. 한국 공공데이터는 UTF-8이 아닌 `cp949(EUC-KR)` 인코딩으로 배포되는 경우가 많아, `encoding` 파라미터를 명시하지 않으면 pandas가 UTF-8로 읽으려다 실패하는 것이 원인이었습니다. `pd.read_csv()`에 `encoding='cp949'`를 명시해 해결했습니다. 이후 한국 공공데이터를 다룰 때는 `cp949`를 우선 시도하는 것이 기본 패턴이 됐습니다.
 
-```python
-driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-time.sleep(2)  # 스크롤 후 렌더링 대기
-```
+### 분석
 
-**배운 점**
-
-`time.sleep()`은 단순하지만 동적 페이지에서 렌더링 완료를 보장하는 현실적인 방법임. 대기 시간이 너무 짧으면 요소 누락, 너무 길면 수집 속도 저하로 이어지므로 페이지 응답 특성에 맞게 조정이 필요함
-
-
-### ChromeDriver 버전 불일치 오류
-
-**문제 상황**
-
-Selenium 실행 시 아래 오류 발생:
-```
-SessionNotCreatedException: Message: session not created:
-This version of ChromeDriver only supports Chrome version XX
-```
-
-**원인 분석**
-
-로컬에 설치된 Chrome 브라우저 버전과 수동으로 설치한 ChromeDriver 버전이 일치하지 않아 세션 생성 실패. Chrome은 자동 업데이트되므로 ChromeDriver를 별도로 관리하면 버전 불일치가 반복적으로 발생함
-
-**해결 방법**
-
-```python
-import chromedriver_autoinstaller
-chromedriver_autoinstaller.install()
-```
-
-실행 시점의 Chrome 버전을 자동 감지해 맞는 ChromeDriver를 설치하므로 버전 관리 불필요
-
-**배운 점**
-
-Chrome 자동 업데이트 환경에서는 ChromeDriver를 수동으로 관리하는 것이 비효율적이며, `chromedriver-autoinstaller`로 버전 동기화를 자동화하는 것이 현실적인 해결책임
-
-
-### KMeans 실행마다 클러스터 결과가 달라지는 문제
-
-**문제 상황**
-
-KMeans 실행 시 같은 코드인데도 실행할 때마다 클러스터 구성이 달라져, 분석 결과를 재현하거나 다른 사람과 공유하기 어려움
-
-**원인 분석**
-
-KMeans는 초기 중심점(centroid)을 랜덤하게 선택하기 때문에 실행마다 출발점이 달라지고, 그 결과 클러스터 구성도 매번 달라질 수 있음
-
-**해결 방법**
-
-```python
-kmeans = KMeans(n_clusters=3, random_state=30)
-```
-
-`random_state`에 고정값을 지정하면 랜덤 시드가 고정되어 누가, 언제 실행해도 동일한 결과가 보장됨
-
-**배운 점**
-
-분석 결과의 재현성은 코드 공유나 협업 시 필수 조건임. 머신러닝에서 랜덤 요소가 개입되는 알고리즘은 `random_state`를 명시적으로 고정하는 습관이 중요함
-
-
-### 한글 CSV 파일 인코딩 오류
-
-**문제 상황**
-
-국민연금공단 CSV 파일을 기본 옵션으로 읽을 때 인코딩 오류 발생
-
-**원인 분석**
-
-한국 정부 공공데이터는 UTF-8이 아닌 `cp949(EUC-KR)` 인코딩으로 배포되는 경우가 많음
-
-**해결 방법**
-
-```python
-raw = pd.read_csv('./data/국민연금공단_국민연금 가입 사업장 내역.csv', encoding='cp949')
-```
-
-**배운 점**
-
-오류 메시지만으로는 인코딩 문제임을 바로 파악하기 어려웠고, `encoding` 파라미터를 명시하지 않으면 pandas가 UTF-8로 읽으려다 실패한다는 것을 확인했다. 이후 한국 공공데이터를 다룰 때는 `cp949`를 우선 시도하는 것이 기본 패턴이 됨
+- **KMeans 실행마다 클러스터 결과 불일치** : 같은 코드로 KMeans를 실행해도 매번 클러스터 구성이 달라져 분석 결과를 재현하거나 공유하기 어려웠습니다. KMeans는 초기 중심점을 랜덤하게 선택하기 때문에 실행마다 출발점이 달라지고 결과도 달라질 수 있는 것이 원인이었습니다. `KMeans(n_clusters=3, random_state=30)`으로 랜덤 시드를 고정해 재현성을 확보했습니다. 머신러닝에서 랜덤 요소가 개입되는 알고리즘은 `random_state`를 명시적으로 고정하는 것이 공유와 협업에서 필수임을 확인했습니다.
 
 ---
 
