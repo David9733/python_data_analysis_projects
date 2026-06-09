@@ -196,34 +196,6 @@ input_word_place.send_keys(searching)
 
 ## 🔧 트러블슈팅 / 개선 경험
 
-### KMeans Windows MKL 메모리 경고
-
-**문제 상황**
-
-Windows 환경에서 KMeans 실행 시 아래 경고 발생:
-```
-UserWarning: KMeans is known to have a memory leak on Windows with MKL,
-when there are less chunks than available threads.
-You can avoid it by setting the environment variable OMP_NUM_THREADS=1.
-```
-
-**원인 분석**
-
-Windows + MKL 환경에서 사용 가능한 스레드 수보다 데이터 청크 수가 적을 때 발생하는 알려진 메모리 누수 이슈
-
-**해결 방법**
-
-```python
-import os
-os.environ['OMP_NUM_THREADS'] = '1'
-```
-
-**배운 점**
-
-scikit-learn 경고 메시지에 해결 방법이 직접 명시되어 있었으며, 라이브러리 경고를 무시하지 않고 확인하는 습관이 중요하다는 것을 확인
-
----
-
 ### 한글 CSV 파일 인코딩 오류
 
 **문제 상황**
