@@ -215,12 +215,13 @@ input_word_place.send_keys(searching)
 
 ## 🚀 실행 방법
 
-```bash
+```
+# Jupyter Notebook 실행
+jupyter notebook
+
 # 의존성 설치
 pip install pandas selenium beautifulsoup4 sqlalchemy pymysql scikit-learn chromedriver-autoinstaller openpyxl
 
-# Jupyter Notebook 실행
-jupyter notebook
 ```
 
 DB 연동 프로젝트(서울 중구 커피점 파악, 최근 가입 고객 분석)는 MariaDB 연결 정보를 별도로 설정해야 합니다.
