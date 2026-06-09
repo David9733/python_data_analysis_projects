@@ -218,7 +218,6 @@ time.sleep(2)  # 스크롤 후 렌더링 대기
 
 `time.sleep()`은 단순하지만 동적 페이지에서 렌더링 완료를 보장하는 현실적인 방법임. 대기 시간이 너무 짧으면 요소 누락, 너무 길면 수집 속도 저하로 이어지므로 페이지 응답 특성에 맞게 조정이 필요함
 
----
 
 ### ChromeDriver 버전 불일치 오류
 
@@ -247,7 +246,6 @@ chromedriver_autoinstaller.install()
 
 Chrome 자동 업데이트 환경에서는 ChromeDriver를 수동으로 관리하는 것이 비효율적이며, `chromedriver-autoinstaller`로 버전 동기화를 자동화하는 것이 현실적인 해결책임
 
----
 
 ### KMeans 실행마다 클러스터 결과가 달라지는 문제
 
@@ -271,7 +269,6 @@ kmeans = KMeans(n_clusters=3, random_state=30)
 
 분석 결과의 재현성은 코드 공유나 협업 시 필수 조건임. 머신러닝에서 랜덤 요소가 개입되는 알고리즘은 `random_state`를 명시적으로 고정하는 습관이 중요함
 
----
 
 ### 한글 CSV 파일 인코딩 오류
 
